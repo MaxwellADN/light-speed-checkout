@@ -1,5 +1,13 @@
 {
   "app": {
+    "commons": {
+      "create": "Create",
+      "products":"Products",
+      "http": {
+        "created": "Data has been succesfully saved !",
+        "badRequest": "Something went wrong. Please try again!"
+      }
+    },
     "title": "light-speed checkout",
     "signUp": {
       "title": "Sign up",
@@ -52,7 +60,10 @@
     "signInWithGoogle": "Sign in with google",
     "signInWithFB": "Sign in with google",
     "product": {
-      "new": "New product"
+      "new": "New product",
+      "infos": "Informations",
+      "files": "Files",
+      "publish": "Publish"
     },
     "service": {
       "new":"New service"

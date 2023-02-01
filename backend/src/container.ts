@@ -8,6 +8,7 @@ import { AuthEmailService } from "./services/auth-email.service";
 import { AuthService } from "./services/auth.service";
 import { BearerTokenService } from "./services/bearer-token.service";
 import { EncryptionService } from "./services/encryption.service";
+import { ProductService } from "./services/product.service";
 import { RoleService } from "./services/role.service";
 import { TenantService } from "./services/tenant.service";
 import { UserService } from "./services/user.service";
@@ -31,6 +32,7 @@ export const loadContainer = (app: Application) => {
         bearerTokenService: asClass(BearerTokenService).scoped(),
         authService: asClass(AuthService).scoped(),
         authEmailService: asClass(AuthEmailService).scoped(),
+        productService: asClass(ProductService).scoped(),
     })
     app.use(scopePerRequest(Container));
 }

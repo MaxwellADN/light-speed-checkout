@@ -1,5 +1,13 @@
 {
   "app": {
+    "commons": {
+      "create": "Créer",
+      "products": "Produits",
+      "http": {
+        "created": "Les données ont été bien enregistrées !",
+        "badRequest":"Le site rencontre un problème. Veillez rééssayer plus tard !"
+      }
+    },
     "appTitle": "light-speed checkout",
     "signUp": {
       "title": "S'inscrire",
@@ -52,7 +60,10 @@
     "signInWithGoogle": "Se connecter avec Google",
     "signInWithFB": "Se connecter avec Facebook",
     "product": {
-      "new": "Nouveau produit"
+      "new": "Nouveau produit",
+      "infos": "Information du produit",
+      "files": "Fichiers",
+      "publish": "Publish"
     },
     "service": {
       "new":"Nouveau service"

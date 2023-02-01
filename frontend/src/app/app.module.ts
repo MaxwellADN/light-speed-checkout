@@ -17,10 +17,12 @@ import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig } f
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { LayoutService } from './core/utils';
 import { ToastService } from './core/utils/toast.service';
+import { DndDirective } from './core/directives/dnd.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
+    DndDirective,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

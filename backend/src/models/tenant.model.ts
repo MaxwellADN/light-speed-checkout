@@ -1,4 +1,3 @@
-
 import { Schema, model } from "mongoose";
 import { TenantInterface } from "../interfaces/tenant.interface";
 

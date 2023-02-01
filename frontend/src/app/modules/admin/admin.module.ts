@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
-import { NbActionsModule, NbButtonModule, NbContextMenuModule, NbIconModule, NbLayoutModule, NbMenuModule, NbUserModule } from '@nebular/theme';
+import { NbActionsModule, NbButtonModule, NbContextMenuModule, NbIconModule, NbLayoutModule, NbMenuModule, NbToastrModule, NbUserModule } from '@nebular/theme';
 import { HeaderComponent } from './header/header.component';
 
 @NgModule({
@@ -21,6 +21,7 @@ import { HeaderComponent } from './header/header.component';
     NbMenuModule.forRoot(),
     NbActionsModule,
     NbUserModule,
+    NbToastrModule.forRoot()
   ]
 })
 export class AdminModule { }

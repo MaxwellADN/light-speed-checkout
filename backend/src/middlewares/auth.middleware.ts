@@ -9,7 +9,7 @@ export function authenticate(req: Request, res: Response, next: NextFunction) {
         const token = req.headers.authorization?.split(" ")[1];
         if (token) {
             const decodedData: any = jwt.verify(token, TOKEN_SECRET)
-            req.params.id = decodedData?.id;
+            req.params.userId = decodedData?.id;
         }
         else{
             return res.status(HttpStatusCodeEnum.UNAUTHORIZED).send(ErrorMessageEnum.UNAUTHORIZED);

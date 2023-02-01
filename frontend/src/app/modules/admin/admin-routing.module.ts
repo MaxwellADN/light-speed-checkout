@@ -21,6 +21,12 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: { permittedRoles: [UserRoleEnum.ADMIN, UserRoleEnum.USER, UserRoleEnum.VIEWER] }
       },
+      {
+        path: 'product',
+        loadChildren: () => import('./product/product.module').then(m => m.ProductModule),
+        canActivate: [AuthGuard],
+        data: { permittedRoles: [UserRoleEnum.ADMIN, UserRoleEnum.USER, UserRoleEnum.VIEWER] }
+      },
     ]
   },
 ];
