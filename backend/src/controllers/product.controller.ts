@@ -7,6 +7,10 @@ import { ProductInterface } from "../interfaces/product.interface";
 import { authenticate } from "../middlewares/auth.middleware";
 import Product from "../models/product.model";
 import mongoose from "mongoose";
+import { UploadService } from "../services/upload.service";
+import { FileArray } from "express-fileupload";
+import { FileUtil } from "../utils/file.util";
+import { ProductUtil } from "../utils/product-file.util";
 
 @before([authenticate])
 @route('/product')
@@ -18,7 +22,7 @@ export class ProductController {
      * @param {ProductService} productService - ProductService - This is the service that we want to
      * inject.
      */
-    constructor(private readonly productService: ProductService) { }
+    constructor(private readonly productService: ProductService, private readonly uploadService: UploadService) { }
 
     @GET()
     /**
@@ -89,6 +93,43 @@ export class ProductController {
         }
     }
 
+    @route('/form-data')
+    @POST()
+    /**
+     * It creates a new product with files and assigns it to the user's tenant.
+     * @param {Request} req - Request - The request object.
+     * @param {Response} res - Response - The response object that will be returned to the client.
+     * @returns The result of the create operation.
+     */
+    public async createWithFiles(req: Request, res: Response) {
+        const session = await mongoose.startSession();
+        session.startTransaction();
+        try {
+            const files = req.files;
+            const entity: ProductInterface = JSON.parse(req.body.product);
+            const user = await User.findById(req.params.userId);
+            const uploads = FileUtil.createUploadFiles(files);
+            if (user?.tenant) {
+                entity.createdBy = user;
+                entity.tenant = user.tenant;
+                if (files) {
+                    const filesUploaded = await this.uploadService.uploadFiles(uploads);
+                    entity.files = filesUploaded;
+                }
+                const result = await Product.create(entity);
+                console.log(result)
+                await session.commitTransaction();
+                return res.status(HttpStatusCodeEnum.CREATED).json(result);
+            }
+            return res.status(HttpStatusCodeEnum.NOT_FOUND).json({ message: 'Connected user not found !' });
+        } catch (error) {
+            await session.abortTransaction();
+            return res.status(HttpStatusCodeEnum.BAD_REQUEST).json({ message: error });
+        }  finally {
+            await session.endSession();
+        }
+    }
+
     @route('/:id')
     @PUT()
     /**
@@ -101,7 +142,7 @@ export class ProductController {
         try {
             const entity: ProductInterface = req.body;
             const id = req.params.id;
-            if (!mongoose.Types.ObjectId.isValid(id)) return res.status(HttpStatusCodeEnum.NOT_FOUND).json({ message: 'Data not found !' }); 
+            if (!mongoose.Types.ObjectId.isValid(id)) return res.status(HttpStatusCodeEnum.NOT_FOUND).json({ message: 'Data not found !' });
             entity.updateAt = new Date();
             const result = await Product.findByIdAndUpdate(id, entity, { new: true });
             return res.status(HttpStatusCodeEnum.OK).json(result);
@@ -123,7 +164,7 @@ export class ProductController {
     public async delete(req: Request, res: Response) {
         try {
             const id = req.params.id;
-            if (!mongoose.Types.ObjectId.isValid(id)) return res.status(HttpStatusCodeEnum.NOT_FOUND).json({ message: 'Data not found !' }); 
+            if (!mongoose.Types.ObjectId.isValid(id)) return res.status(HttpStatusCodeEnum.NOT_FOUND).json({ message: 'Data not found !' });
             const result = await Product.findByIdAndRemove(id);
             return res.status(HttpStatusCodeEnum.OK).json(result);
         } catch (error) {

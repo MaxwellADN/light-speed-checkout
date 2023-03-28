@@ -11,6 +11,7 @@ import { EncryptionService } from "./services/encryption.service";
 import { ProductService } from "./services/product.service";
 import { RoleService } from "./services/role.service";
 import { TenantService } from "./services/tenant.service";
+import { UploadService } from "./services/upload.service";
 import { UserService } from "./services/user.service";
 
 
@@ -33,6 +34,7 @@ export const loadContainer = (app: Application) => {
         authService: asClass(AuthService).scoped(),
         authEmailService: asClass(AuthEmailService).scoped(),
         productService: asClass(ProductService).scoped(),
+        uploadService: asClass(UploadService).scoped(),
     })
     app.use(scopePerRequest(Container));
 }

@@ -4,54 +4,62 @@
             <app-back-nav link="/app/product/list" title="{{'app.product.new' | translate }}"></app-back-nav>
         </nb-card-header>
         <nb-card-body class="p-5">
-            <nb-stepper #stepper [linear]="true" [selectedIndex]="stepperIndex">
-                <nb-step [stepControl]="productFormGroup" [completed]="formStepCompleted" label="{{'app.product.infos' | translate }}">
-                  <form  [formGroup]="productFormGroup" class="step-container" #formDir="ngForm" (ngSubmit)="save(productFormGroup.value)">
-                    <div>
-                        <div class="mb-4">
-                            <label for="name" class="form-label">Name</label>
-                            <input nbInput fullWidth type="text" class="form-control" id="name" formControlName="name"
-                                placeholder="Product name">
-                            <div class="text-danger mt-2"
-                                *ngIf="productFormGroup.hasError('required', ['name']) && formDir.submitted">The product
-                                name is required !</div>
-                        </div>
-                        <div class="mb-4">
-                            <label for="description" class="form-label">Description</label>
-                            <textarea nbInput fullWidth class="form-control" formControlName="description"
-                                id="description"></textarea>
-                        </div>
-                        <div class="mb-4">
-                            <label for="price" class="form-label">Price</label>
-                            <input nbInput fullWidth type="number" class="form-control" id="price" formControlName="price"
-                                placeholder="00.0">
-                            <div class="text-danger mt-2"
-                                *ngIf="productFormGroup.hasError('required', ['price']) && formDir.submitted">The product
-                                price is required !</div>
-                        </div>
-                        <div class="mb-4">
-                            <label for="tax" class="form-label">Tax</label>
-                            <nb-select fullWidth formArrayName="tax" placeholder="Select a tax">
-                                <nb-option></nb-option>
-                            </nb-select>
-                        </div>
-                        <div class="mb-4">
-                            <button class="float-end" type="submit" [nbSpinner]="saving" size="small" status="primary" nbButton>Next</button>
-                        </div>
-                    </div>
-                  </form>
-                </nb-step>
-                <nb-step [completed]="filesStepCompleted" label="{{'app.product.files' | translate }}">
+            <form  [formGroup]="productFormGroup" class="step-container" #formDir="ngForm" (ngSubmit)="save(productFormGroup.value)">
+                <div>
                     <div class="mb-4">
-                        <!-- moove product form to another component-->
-                        <app-product-upload></app-product-upload>
-                        <button class="float-end" type="submit" [nbSpinner]="saving" size="small" status="primary" nbButton>Next</button>
+                        <label for="name" class="form-label">Name</label>
+                        <input nbInput fullWidth type="text" class="form-control" id="name" formControlName="name"
+                            placeholder="Product name">
+                        <div class="text-danger mt-2"
+                            *ngIf="productFormGroup.hasError('required', ['name']) && formDir.submitted">The product
+                            name is required !</div>
                     </div>
-                </nb-step>
-                <nb-step label="{{'app.product.publish' | translate }}">
-                    <button nbButton nbStepperNext>next</button>
-                  </nb-step>
-              </nb-stepper>
+                    <div class="mb-4">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea nbInput fullWidth class="form-control" formControlName="description"
+                            id="description"></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="price" class="form-label">Price</label>
+                        <input nbInput fullWidth type="number" class="form-control" id="price" formControlName="price"
+                            placeholder="00.0">
+                        <div class="text-danger mt-2"
+                            *ngIf="productFormGroup.hasError('required', ['price']) && formDir.submitted">The product
+                            price is required !</div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="tax" class="form-label">Tax</label>
+                        <nb-select fullWidth formArrayName="tax" placeholder="Select a tax">
+                            <nb-option></nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="drop-zone" appDnd (fileDropped)="onFileDropped($event)">
+                        <input class="file-input" type="file" #fileDropRef id="fileDropRef" multiple (change)="onFileChanged($event)" />
+                        <!-- <img src="assets/img/dnd/ic-upload-file.svg" alt=""> -->
+                        <h3>Drag and drop file here</h3>
+                        <h3>or</h3>
+                        <label nbButton class="p-4 file-label" for="fileDropRef">Browse for file</label>
+                    </div>
+                    <div class="files-list">
+                        <div class="single-file" *ngFor="let file of files; let i = index">
+                            <img src="assets/img/dnd/ic-file.svg" width="45px" alt="file">
+                            <div class="info">
+                                <h4 class="name">
+                                    {{ file?.name }}
+                                </h4>
+                                <p class="size">
+                                    {{ formatBytes(file?.size) }}
+                                </p>
+                                <app-product-upload-progress [progress]="file?.progress"></app-product-upload-progress>
+                            </div>
+                            <img src="/assets/img/dnd/ic-delete-file.svg" class="delete" width="20px" alt="file" (click)="deleteFile(i)">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <button class="float-end" type="submit" [nbSpinner]="saving" size="small" status="primary" fullWidth nbButton>Save</button>
+                    </div>
+                </div>
+              </form>
         </nb-card-body>
     </nb-card>
 </div>

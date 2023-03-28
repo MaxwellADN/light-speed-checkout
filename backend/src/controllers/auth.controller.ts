@@ -110,7 +110,7 @@ export class AuthController {
             }
             return res.status(HttpStatusCodeEnum.BAD_REQUEST).json({ message: ErrorMessageEnum.NOT_FOUND });
         } catch (error) {
-            return res.status(HttpStatusCodeEnum.BAD_REQUEST).json({ message: ErrorMessageEnum.BAD_REQUEST });
+            return res.status(HttpStatusCodeEnum.BAD_REQUEST).json({ message: error });
         }
     }
 

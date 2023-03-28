@@ -4,8 +4,9 @@
       "create": "Créer",
       "products": "Produits",
       "http": {
-        "created": "Les données ont été bien enregistrées !",
-        "badRequest":"Le site rencontre un problème. Veillez rééssayer plus tard !"
+        "created": "Les données ont été bien enregistrées!",
+        "badRequest":"Le site rencontre un problème. Veillez rééssayer plus tard!",
+        "uploaded": "Les fichiers ont été bien téléchargés!"
       }
     },
     "appTitle": "light-speed checkout",
@@ -63,7 +64,10 @@
       "new": "Nouveau produit",
       "infos": "Information du produit",
       "files": "Fichiers",
-      "publish": "Publish"
+      "publish": "Publish",
+      "upload": {
+        "selectFileWarning": "veillez selection des fichiers à téléchargés..."
+      }
     },
     "service": {
       "new":"Nouveau service"

@@ -8,8 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ProductRoutingModule } from './product-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastService } from 'src/app/core/utils/toast.service';
-import { ProductUploadComponent } from './product-create/product-upload/product-upload.component';
-import { ProductUploadProgressComponent } from './product-create/product-upload/product-upload-progress/product-upload-progress.component';
+import { ProductUploadProgressComponent } from './product-create/product-upload-progress/product-upload-progress.component';
 
 
 
@@ -17,7 +16,6 @@ import { ProductUploadProgressComponent } from './product-create/product-upload/
   declarations: [
     ProductsComponent,
     ProductCreateComponent,
-    ProductUploadComponent,
     ProductUploadProgressComponent
   ],
   imports: [

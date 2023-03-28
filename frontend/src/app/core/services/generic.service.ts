@@ -70,6 +70,15 @@ export abstract class GenericService<T> {
     }
 
     /**
+     * This function takes a FormData object and returns an Observable of type T.
+     * @param {FormData} formData - FormData - The form data to be sent to the server.
+     * @returns The observable is being returned.
+     */
+    public createWithFiles(formData: FormData): Observable<T> {
+        return this.http.post<T>(this.apiUrl+ `/form-data`, formData, { headers: this.headers });
+    }
+
+    /**
      * This function takes an id and an entity, and returns an observable of type T.
      * @param {string} id - string - the id of the entity to update
      * @param {T} entity - The entity to be updated.

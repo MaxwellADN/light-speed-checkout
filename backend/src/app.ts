@@ -8,7 +8,7 @@ import mongoose from 'mongoose';
 import { MONGO_CONFIG } from './constants/api.constants';
 import { loadControllers } from "awilix-express";
 import { loadContainer } from "./container";
-// import Routes from './routes'
+import fileUpload from 'express-fileupload';
 
 class App {
 
@@ -33,6 +33,7 @@ class App {
      */
     private defaultConfig() {
         dotenv.config();
+        this.app.use(fileUpload());
         this.createRawBody();
         this.app.use(helmet());
         this.app.use(cors());
@@ -73,9 +74,9 @@ class App {
                 req.rawBody = buf.toString(encoding || 'utf8');
             }
         }
-        this.app.use(bodyParser.json({ verify: rawBodySaver }));
-        this.app.use(bodyParser.urlencoded({ verify: rawBodySaver, extended: true }));
-        this.app.use(bodyParser.raw({ verify: rawBodySaver, type: '*/*' }));
+        this.app.use(bodyParser.json({ verify: rawBodySaver, limit: '50mb' }));
+        this.app.use(bodyParser.urlencoded({ verify: rawBodySaver, extended: true, limit: '50mb' }));
+        // this.app.use(bodyParser.raw({ verify: rawBodySaver, type: '*/*', limit: '50mb' }));
     }
 }
 

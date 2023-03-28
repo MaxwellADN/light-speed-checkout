@@ -1,7 +1,7 @@
 import mongoose, { Schema, model } from "mongoose";
-import { ProductInterface } from "../interfaces/product.interface";
+import { FileInterface } from "../interfaces/file.interface";
 
-export const ProductSchema = new Schema({
+export const ProductFileSchema = new Schema({
     createdAt: { 
         type: Date,
         default: new Date(),
@@ -10,27 +10,22 @@ export const ProductSchema = new Schema({
         type: Date,
         default: null,
     },
-    name: { 
+    filename: { 
         type: String,
         required: true
     },
-    description: { 
-        type: String,
-        required: false
-    },
-    price: { 
-        type: Number,
-        required: true
-    },
-    status: { 
+    extension: { 
         type: String,
         required: true
     },
-    files: [],
-    tax: {
+    url: { 
+        type: String,
+        required: true
+    },
+    Product: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tax',
-        required: false
+        ref: 'Product',
+        required: true
     },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
@@ -44,5 +39,5 @@ export const ProductSchema = new Schema({
     }
 });
 
-const Product = model<ProductInterface>('Product', ProductSchema);
-export default Product;
+const ProductFile = model<FileInterface>('ProductFile', ProductFileSchema);
+export default ProductFile;

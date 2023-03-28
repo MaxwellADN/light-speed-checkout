@@ -1,10 +1,8 @@
-import { Document } from "mongoose";
-
-export interface ProductFileInterface {
+export interface FileInterface {
     /**
      * Id
      */
-    id: string | undefined;
+    id?: string | undefined;
     /**
      * Date creation
      */
@@ -12,7 +10,7 @@ export interface ProductFileInterface {
     /**
      * Updated date
      */
-    updateAt: Date | undefined
+    updateAt?: Date | undefined
     /**
      * File name
      */

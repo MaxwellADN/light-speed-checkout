@@ -5,7 +5,8 @@
       "products":"Products",
       "http": {
         "created": "Data has been succesfully saved !",
-        "badRequest": "Something went wrong. Please try again!"
+        "badRequest": "Something went wrong. Please try again!",
+        "uploaded": "The files have been succesfully uploaded!"
       }
     },
     "title": "light-speed checkout",
@@ -63,7 +64,10 @@
       "new": "New product",
       "infos": "Informations",
       "files": "Files",
-      "publish": "Publish"
+      "publish": "Publish",
+      "upload": {
+        "selectFileWarning": "Please file(s) to upload..."
+      }
     },
     "service": {
       "new":"New service"
