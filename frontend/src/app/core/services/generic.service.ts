@@ -56,8 +56,8 @@ export abstract class GenericService<T> {
      * @param {string} searchTerm - The search term that the user entered in the search box
      * @returns An Observable of type DatatableResponseInterface<T>
      */
-    public search(page: number, size: number, searchTerm: string): Observable<DatatableResponseInterface<T>> {
-        return this.http.get<DatatableResponseInterface<T>>(this.apiUrl + `/page/${page}/size/${size}/searchTerm/${searchTerm}`, { headers: this.headers })
+    public search(page: number, size: number, searchTerm: string | undefined): Observable<DatatableResponseInterface<T>> {
+        return this.http.get<DatatableResponseInterface<T>>(this.apiUrl + `?page=${page}&size=${size}&searchTerm=${searchTerm}`, { headers: this.headers })
     }
 
     /**

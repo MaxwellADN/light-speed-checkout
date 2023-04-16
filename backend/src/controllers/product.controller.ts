@@ -8,9 +8,7 @@ import { authenticate } from "../middlewares/auth.middleware";
 import Product from "../models/product.model";
 import mongoose from "mongoose";
 import { UploadService } from "../services/upload.service";
-import { FileArray } from "express-fileupload";
 import { FileUtil } from "../utils/file.util";
-import { ProductUtil } from "../utils/product-file.util";
 
 @before([authenticate])
 @route('/product')
@@ -117,7 +115,6 @@ export class ProductController {
                     entity.files = filesUploaded;
                 }
                 const result = await Product.create(entity);
-                console.log(result)
                 await session.commitTransaction();
                 return res.status(HttpStatusCodeEnum.CREATED).json(result);
             }

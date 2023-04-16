@@ -80,15 +80,11 @@ export class ProductCreateComponent implements OnInit {
     this.productService.createWithFiles(formData).subscribe({
       next: (product) => {
         if (product) {
-          this.toastService.showToast('success', this.translate.instant('app.commons.http.created'));
-          // this.stepperIndex = product.stepperIndex! + 1;
-          // this.product = product;
-          // localStorage.setItem(CREATED_PRODUCT_ID, `${product.id}`);
-          // localStorage.setItem(PRODUCT_STEPPER_INDEX, `${this.stepperIndex}`);
+          this.toastService.showToast('success', this.translate.instant('app.common.http.created'));
         }
       },
       error: () => {
-        this.toastService.showToast('danger', this.translate.instant('app.commons.http.badRequest'));
+        this.toastService.showToast('danger', this.translate.instant('app.common.http.badRequest'));
       }
     })
   }
@@ -203,10 +199,10 @@ export class ProductCreateComponent implements OnInit {
       }
       this.uploadService.upload(formData).subscribe({
         next: () => {
-          this.toastService.showToast('success', this.translate.instant('app.commons.http.uploaded'));
+          this.toastService.showToast('success', this.translate.instant('app.common.http.uploaded'));
         },
         error: () => {
-          this.toastService.showToast('danger', this.translate.instant('app.commons.http.badRequest'));
+          this.toastService.showToast('danger', this.translate.instant('app.common.http.badRequest'));
         }
       })
     } else {

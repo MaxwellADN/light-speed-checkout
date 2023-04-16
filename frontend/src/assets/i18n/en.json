@@ -1,6 +1,6 @@
 {
   "app": {
-    "commons": {
+    "common": {
       "create": "Create",
       "products":"Products",
       "http": {
@@ -10,6 +10,29 @@
       }
     },
     "title": "light-speed checkout",
+    "sidebar": {
+      "menu": {
+        "items": {
+          "productAndServices": "Products and services",
+          "products": "Products",
+          "services": "Services",
+          "settings": "Settings",
+          "taxes": "Taxes",
+          "currencies": "Currencies",
+          "plan": "Plan",
+          "profile": "Profile",
+          "general": "General",
+          "owner": "Software owner",
+          "discounts": "Discounts",
+          "orders": "Orders",
+          "customers": "Customers",
+          "adminConsole": "Admin console"
+        }
+      }
+    },
+    "pagination": {
+      "itemPerPage": "Item per page"
+    },
     "signUp": {
       "title": "Sign up",
       "fullname": "Fullname",
@@ -65,6 +88,8 @@
       "infos": "Informations",
       "files": "Files",
       "publish": "Publish",
+      "price": "Price",
+      "status": "Status",
       "upload": {
         "selectFileWarning": "Please file(s) to upload..."
       }
@@ -78,6 +103,9 @@
     "user": {
       "profile": "Profile"
     },
-    "logout": "Logout"
+    "logout": "Logout",
+    "table": {
+      "actions": "Actions"
+    }
   }
 }

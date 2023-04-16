@@ -11,34 +11,28 @@ export class UploadService {
      * @returns The result array is being returned.
      */
     public async uploadFiles(files: any): Promise<FileInterface[]> {
-        const result: FileInterface[] = [];
         try {
-            for (const file of files) {
-                const fileName = `${Date.now()}-${file.name}`;
-                let uploadParameters = {
-                    Bucket: BUCKET_NAME,
-                    ContentType: 'multipart/form-data',
-                    Body: file.data,
-                    Key: fileName
-                };
-                space.upload(uploadParameters, function (error: Error, data:  ManagedUpload.SendData) {
-                    if (error) {
-                        console.error(error);
-                        return;
-                    }
-                    console.log("data", data)
-                    result.push({
+            const result: FileInterface[] = await Promise.all(
+                files.map( async(file: any) => {
+                    const filename = `${new Date().toISOString()}-${file.name}`;
+                    let uploadParams = {
+                        Bucket: BUCKET_NAME,
+                        ContentType: 'multipart/form-data',
+                        Body: file.data,
+                        Key: filename
+                    };
+                    const data = await space.upload(uploadParams).promise();
+                    return {
                         createdAt: new Date(),
                         extension: file.extension,
                         filename: file.name,
-                        url: data.Location,
-                    });
-                });
-                console.log("result", result)
-            }
+                        url: data.Location
+                    }
+                })
+            );
+            return result;
         } catch (ex) {
             throw ex;
         }
-        return result;
     }
 }

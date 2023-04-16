@@ -2,15 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsComponent } from './products/products.component';
 import { ProductCreateComponent } from './product-create/product-create.component';
-import { NbButtonModule, NbCardModule, NbInputModule, NbSelectModule, NbSpinnerModule, NbStepperModule, NbToastrModule } from '@nebular/theme';
+import { NbButtonModule, NbCardModule, NbContextMenuModule, NbIconModule, NbInputModule, NbSelectModule, NbSpinnerModule, NbStepperModule, NbToastrModule } from '@nebular/theme';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProductRoutingModule } from './product-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastService } from 'src/app/core/utils/toast.service';
 import { ProductUploadProgressComponent } from './product-create/product-upload-progress/product-upload-progress.component';
-
-
+import { NgbPaginationModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -30,7 +29,11 @@ import { ProductUploadProgressComponent } from './product-create/product-upload-
     NbSpinnerModule,
     NbButtonModule,
     NbStepperModule,
-    NbToastrModule.forRoot()
+    NbIconModule,
+    NbContextMenuModule,
+    NgbPaginationModule,
+    NgbTypeaheadModule,
+    NbToastrModule.forRoot(),
   ],
   providers: [ToastService]
 })

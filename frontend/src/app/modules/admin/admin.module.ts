@@ -2,13 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
-import { NbActionsModule, NbButtonModule, NbContextMenuModule, NbIconModule, NbLayoutModule, NbMenuModule, NbToastrModule, NbUserModule } from '@nebular/theme';
+import { NbActionsModule, NbButtonModule, NbContextMenuModule, NbIconModule, NbLayoutModule, NbMenuModule, NbSidebarModule, NbToastrModule, NbUserModule } from '@nebular/theme';
 import { HeaderComponent } from './header/header.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
-    HeaderComponent
+    HeaderComponent,
+    SidebarComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +23,8 @@ import { HeaderComponent } from './header/header.component';
     NbMenuModule.forRoot(),
     NbActionsModule,
     NbUserModule,
-    NbToastrModule.forRoot()
+    NbToastrModule.forRoot(),
+    NbSidebarModule.forRoot(),
   ]
 })
 export class AdminModule { }

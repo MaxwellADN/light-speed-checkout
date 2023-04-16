@@ -22,20 +22,20 @@ export class ProductService {
      * @returns An array of ProductInterface objects or null.
      */
     public async getAll(tenantId: string | TenantInterface, size: number, skip: number, searchTerm: string): Promise<ProductInterface[] | null> {
+        const regex = new RegExp(searchTerm, 'i');
         return await Product.find(
-                { 
-                    $and: [
-                        { tenant: tenantId },
-                        {
-                            $or: [
-                                { name: searchTerm },
-                                { description: searchTerm },
-                                { status: searchTerm }
-                            ]
-                        }
-                    ]
-                })
-            .populate('tax')
+            {
+                $and: [
+                    { tenant: tenantId },
+                    {
+                        $or: [
+                            { name: { $regex: regex } },
+                            { description: { $regex: regex } },
+                            { status: { $regex: regex } }
+                        ]
+                    }
+                ]
+            })
             .skip(skip)
             .limit(size)
             .sort({ createdAt: -1 })

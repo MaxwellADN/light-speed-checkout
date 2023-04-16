@@ -6,9 +6,13 @@ import { NgBreadcrumbModule } from 'ng-breadcrumb';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { BackNavComponent } from './back-nav/back-nav.component';
+import { ItemPerPageComponent } from './pagination/item-per-page/item-per-page.component';
+import { SearchboxComponent } from './searchbox/searchbox.component';
 
 const components = [
-  BackNavComponent
+  BackNavComponent,
+  ItemPerPageComponent,
+  SearchboxComponent
 ]
 
 @NgModule({

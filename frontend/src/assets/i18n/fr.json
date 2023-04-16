@@ -1,15 +1,38 @@
 {
   "app": {
-    "commons": {
+    "common": {
       "create": "Créer",
       "products": "Produits",
       "http": {
         "created": "Les données ont été bien enregistrées!",
-        "badRequest":"Le site rencontre un problème. Veillez rééssayer plus tard!",
+        "badRequest": "Le site rencontre un problème. Veillez rééssayer plus tard!",
         "uploaded": "Les fichiers ont été bien téléchargés!"
       }
     },
-    "appTitle": "light-speed checkout",
+    "title": "light-speed checkout",
+    "sidebar": {
+      "menu": {
+        "items": {
+          "productAndServices": "Produits et services",
+          "products": "Produits",
+          "services": "Services",
+          "settings": "Paramètres",
+          "taxes": "Taxes",
+          "currencies": "Devises",
+          "plan": "Abonnement",
+          "profile": "Profile",
+          "general": "Générale",
+          "owner": "Propriétaire de l'application",
+          "discounts": "Réductions",
+          "orders": "Commandes",
+          "customers": "Clients",
+          "adminConsole": "Panneau d'administration"
+        }
+      }
+    },
+    "pagination": {
+      "itemPerPage": "Item par page"
+    },
     "signUp": {
       "title": "S'inscrire",
       "fullname": "Nom complet",
@@ -38,7 +61,7 @@
       "link": "Mot de passe oublié?",
       "title": "Entrer votre adresse email",
       "subtitle": "Entrer votre adresse email et nous vous enverrons un lien pour modifier votre de passe!",
-      "btnValidate":"Valider",
+      "btnValidate": "Valider",
       "success": "Un lien vous a été envoyé avec success. Veillez verifier votre méssagerie",
       "notFoundEmail": "Cet email n'existe pas dans notre base de donnée. Veillez s'il vous vérifier votre adresse email ou créer un nouveau compte"
     },
@@ -65,18 +88,23 @@
       "infos": "Information du produit",
       "files": "Fichiers",
       "publish": "Publish",
+      "price": "Prix",
+      "status": "Status",
       "upload": {
         "selectFileWarning": "veillez selection des fichiers à téléchargés..."
       }
     },
     "service": {
-      "new":"Nouveau service"
+      "new": "Nouveau service"
     },
     "subscription": {
       "new": "Nouvel abonnement"
     },
     "user": {
       "profile": "Profil"
+    },
+    "table": {
+      "actions": "Actions"
     },
     "logout": "Se deconnecter"
   }

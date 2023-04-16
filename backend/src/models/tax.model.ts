@@ -20,7 +20,7 @@ export const TaxSchema = new Schema({
     },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tenant',
+        ref: 'User',
         required: true
     },
     tenant: {
