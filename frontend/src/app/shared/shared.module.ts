@@ -8,11 +8,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BackNavComponent } from './back-nav/back-nav.component';
 import { ItemPerPageComponent } from './pagination/item-per-page/item-per-page.component';
 import { SearchboxComponent } from './searchbox/searchbox.component';
+import { NgbdSortableHeader } from '../core/directives/sortable.directive';
 
 const components = [
   BackNavComponent,
   ItemPerPageComponent,
-  SearchboxComponent
+  SearchboxComponent,
+  NgbdSortableHeader
 ]
 
 @NgModule({

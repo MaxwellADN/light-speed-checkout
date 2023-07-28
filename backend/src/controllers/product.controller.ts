@@ -9,6 +9,9 @@ import Product from "../models/product.model";
 import mongoose from "mongoose";
 import { UploadService } from "../services/upload.service";
 import { FileUtil } from "../utils/file.util";
+import { PaginationInterface } from "../interfaces/pagination.interface";
+import { SortDirection } from "aws-sdk/clients/quicksight";
+import { PaginationUtil } from "../utils/pagination.util";
 
 @before([authenticate])
 @route('/product')
@@ -33,12 +36,9 @@ export class ProductController {
         try {
             const user = await User.findById(req.params.userId);
             if (user?.tenant) {
-                const page = +req.query.page!;
-                const size = +req.query.size!;
-                const searchTerm = <string>req.query.searchTerm;
-                const skip = (page - 1) * size;
-                const entities = await this.productService.getAll(user.tenant, size, skip, searchTerm);
-                const records = await this.productService.count(user.tenant);
+                const pagination = PaginationUtil.GetPaginationParams(req.query, user.tenant);
+                const entities = await this.productService.getAll(pagination);
+                const records = await this.productService.count(user.tenant, pagination.searchTerm);
                 return res.status(HttpStatusCodeEnum.OK).json({ records, results: entities });
             }
             return res.status(HttpStatusCodeEnum.NOT_FOUND).json({ message: 'Connected user not found !' });
@@ -81,6 +81,7 @@ export class ProductController {
             const user = await User.findById(req.params.userId);
             if (user?.tenant) {
                 entity.createdBy = user;
+                entity.createdAt = new Date()
                 entity.tenant = user.tenant;
                 const result = await Product.create(entity);
                 return res.status(HttpStatusCodeEnum.CREATED).json(result);

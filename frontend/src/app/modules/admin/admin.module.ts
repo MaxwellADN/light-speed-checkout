@@ -5,12 +5,13 @@ import { AdminComponent } from './admin.component';
 import { NbActionsModule, NbButtonModule, NbContextMenuModule, NbIconModule, NbLayoutModule, NbMenuModule, NbSidebarModule, NbToastrModule, NbUserModule } from '@nebular/theme';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { NgbdSortableHeader } from 'src/app/core/directives/sortable.directive';
 
 @NgModule({
   declarations: [
     AdminComponent,
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
   ],
   imports: [
     CommonModule,

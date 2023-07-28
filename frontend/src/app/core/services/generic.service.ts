@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { DatatableResponseInterface } from "../interfaces/datatable-response.interface";
+import { PaginationInterface } from "../interfaces/pagination.interface";
 
 export abstract class GenericService<T> {
     /**
@@ -47,17 +48,19 @@ export abstract class GenericService<T> {
     }
 
     /**
-     * This function returns an observable of type DatatableResponseInterface, which is a generic type,
-     * and it takes in a page number, size, and searchTerm, and it makes a get request to the apiUrl,
-     * which is a string, and it passes in the page number, size, and searchTerm as parameters, and it
-     * passes in the headers as a second parameter.
-     * @param {number} page - The page number of the data to be retrieved
-     * @param {number} size - number of items to return
-     * @param {string} searchTerm - The search term that the user entered in the search box
-     * @returns An Observable of type DatatableResponseInterface<T>
+     * This function sends an HTTP GET request to an API endpoint with pagination parameters and
+     * returns an observable of a datatable response.
+     * @param {PaginationInterface} pagination - PaginationInterface - an interface that defines the
+     * properties of pagination such as page number, page size, search term, sort direction, and sort
+     * field.
+     * @returns An Observable of type DatatableResponseInterface<T> is being returned.
      */
-    public search(page: number, size: number, searchTerm: string | undefined): Observable<DatatableResponseInterface<T>> {
-        return this.http.get<DatatableResponseInterface<T>>(this.apiUrl + `?page=${page}&size=${size}&searchTerm=${searchTerm}`, { headers: this.headers })
+    public search(pagination: PaginationInterface): Observable<DatatableResponseInterface<T>> {
+        return this.http.get<DatatableResponseInterface<T>>(this.apiUrl
+            + `?page=${pagination.page}&size=${pagination.pageSize}&searchTerm=${pagination.searchTerm}&sortDirection=${pagination.sortDirection}&sortField=${pagination.sortField}`,
+            {
+                headers: this.headers
+            })
     }
 
     /**
@@ -75,7 +78,7 @@ export abstract class GenericService<T> {
      * @returns The observable is being returned.
      */
     public createWithFiles(formData: FormData): Observable<T> {
-        return this.http.post<T>(this.apiUrl+ `/form-data`, formData, { headers: this.headers });
+        return this.http.post<T>(this.apiUrl + `/form-data`, formData, { headers: this.headers });
     }
 
     /**
@@ -85,7 +88,7 @@ export abstract class GenericService<T> {
      * @returns The updated entity.
      */
     public update(id: string, entity: T): Observable<T> {
-        return this.http.put<T>(this.apiUrl+ `/${id}`, entity, { headers: this.headers });
+        return this.http.put<T>(this.apiUrl + `/${id}`, entity, { headers: this.headers });
     }
 
     /**
@@ -94,6 +97,6 @@ export abstract class GenericService<T> {
      * @returns The Observable is being returned.
      */
     public delete(id: string): Observable<T> {
-        return this.http.delete<T>(this.apiUrl+ `/${id}`, { headers: this.headers });
+        return this.http.delete<T>(this.apiUrl + `/${id}`, { headers: this.headers });
     }
 }

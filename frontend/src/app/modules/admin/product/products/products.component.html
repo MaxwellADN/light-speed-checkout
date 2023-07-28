@@ -21,7 +21,7 @@
                     <div class="col-12">
                         <table class="table table-striped table-borderless">
                             <thead>
-                                <th class="col-6" scope="col" sortable="products" (sort)="onSort($event)" >{{'app.common.products' | translate }}</th>
+                                <th class="col-6" scope="col" sortable="name" (sort)="onSort($event)" >{{'app.common.products' | translate }}</th>
                                 <th class="col-2" scope="col" sortable="price" (sort)="onSort($event)" >{{'app.product.price' | translate }}</th>
                                 <th class="col-2" scope="col" sortable="status" (sort)="onSort($event)" >{{'app.product.status' | translate }}</th>
                                 <th class="col-2" scope="col">
@@ -59,9 +59,9 @@
                                     (pageChange)="onPageChange($event)"
                                     [ellipses]="true"
                                     [boundaryLinks]="true"
-                                    [(page)]="page"
-                                    [pageSize]="pageSize"
-                                    [collectionSize]="response.records!"
+                                    [(page)]="pagination.page"
+                                    [pageSize]="pagination.pageSize"
+                                    [collectionSize]="response?.records!"
                                 ></ngb-pagination>
                             </div>
                         </div>

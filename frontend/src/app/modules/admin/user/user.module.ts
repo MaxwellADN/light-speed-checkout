@@ -7,11 +7,13 @@ import { NbCardModule, NbFormFieldModule, NbInputModule } from '@nebular/theme';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgbdSortableHeader } from 'src/app/core/directives/sortable.directive';
 
 
 @NgModule({
   declarations: [
-    UserProfileComponent
+    UserProfileComponent,
+
   ],
   imports: [
     CommonModule,

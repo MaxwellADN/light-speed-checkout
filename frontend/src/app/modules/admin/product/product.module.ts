@@ -10,12 +10,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ToastService } from 'src/app/core/utils/toast.service';
 import { ProductUploadProgressComponent } from './product-create/product-upload-progress/product-upload-progress.component';
 import { NgbPaginationModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbdSortableHeader } from 'src/app/core/directives/sortable.directive';
 
 @NgModule({
   declarations: [
     ProductsComponent,
     ProductCreateComponent,
-    ProductUploadProgressComponent
+    ProductUploadProgressComponent,
   ],
   imports: [
     CommonModule,

@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbDialogService, NbMenuItem, NbStatusService } from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
+import { NgbdSortableHeader } from 'src/app/core/directives/sortable.directive';
 import { ProductStatusEnum } from 'src/app/core/enums/product-status.enum';
 import { DatatableResponseInterface } from 'src/app/core/interfaces/datatable-response.interface';
+import { PaginationInterface } from 'src/app/core/interfaces/pagination.interface';
 import { ProductInterface } from 'src/app/core/interfaces/product.interface';
 import { SortInterface } from 'src/app/core/interfaces/sort.interface';
 import { Product } from 'src/app/core/models/product.model';
@@ -18,21 +20,27 @@ import { ToastService } from 'src/app/core/utils/toast.service';
 })
 export class ProductsComponent implements OnInit {
   /**
+   * table header
+   */
+  @ViewChildren(NgbdSortableHeader) private tableHeaders!: QueryList<NgbdSortableHeader>;
+  /**
    * Use to display a loader
    */
   public loading = false;
   /**
-   * Pagination index
-   */
-  public page = 1;
-  /**
-   * Page size
-   */
-  public pageSize = 10;
-  /**
    * Search term
    */
   public searchTerm = '';
+  /**
+   * Pagination params
+   */
+  public pagination: PaginationInterface = {
+    searchTerm: '',
+    page: 1,
+    pageSize: 10,
+    sortDirection: '',
+    sortField: ''
+  }
   /**
    * Products from database 
    */
@@ -68,10 +76,7 @@ export class ProductsComponent implements OnInit {
    */
   constructor(private productService: ProductService,
     private translate: TranslateService,
-    private authService: AuthService,
-    private activatedRoute: ActivatedRoute,
-    private toastService: ToastService,
-    private router: Router) { }
+    private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.getProducts();
@@ -88,12 +93,12 @@ export class ProductsComponent implements OnInit {
    */
   private getProducts() {
     this.loading = true;
-    return this.productService.search(this.page, this.pageSize, this.searchTerm).subscribe({
+    return this.productService.search(this.pagination).subscribe({
       next: (result) => {
         this.loading = false;
         this.response = result;
       },
-      error: (error) => {
+      error: () => {
         this.loading = false;
         this.toastService.showToast('danger', this.translate.instant('app.errors.badRequest'))
       }
@@ -105,7 +110,7 @@ export class ProductsComponent implements OnInit {
    * @param size page size
    */
   public pageSizeChange(size: number) {
-    this.pageSize = size;
+    this.pagination.pageSize = size;
     this.getProducts();
   }
 
@@ -115,13 +120,12 @@ export class ProductsComponent implements OnInit {
    * We will fix that in next video
    * @param value search term
    */
-  public search(value: KeyboardEvent) {
+  public search(event: any) {
     clearTimeout(this.timeout);
     var $this = this;
     this.timeout = setTimeout(function () {
-      if (value.keyCode != 13) {
-        // $this.searchTerm = value;
-        console.log(value);
+      if (event.keyCode != 13) {
+        $this.searchTerm = event.target.value;
         $this.getProducts();
       }
     })
@@ -132,7 +136,14 @@ export class ProductsComponent implements OnInit {
    * @param sort 
    */
   public onSort(sort: any): void {
-
+    this.tableHeaders.forEach((header) => {
+      if (header.sortable !== sort.column) {
+        header.direction = '';
+      }
+    });
+    this.pagination.sortField = sort.column;
+    this.pagination.sortDirection = sort.direction;
+    this.getProducts();
   }
 
   /**
@@ -149,7 +160,7 @@ export class ProductsComponent implements OnInit {
    * @param page 
    */
   public onPageChange(page: number) {
-    this.page = page;
+    this.pagination.page = page;
     this.getProducts();
   }
 }
